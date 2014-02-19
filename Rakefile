@@ -2,7 +2,6 @@ require 'rubygems'
 require 'rake'
 require 'rake/testtask'
 require 'rake/packagetask'
-require 'rake/gempackagetask'
 
 gemfile = File.expand_path('../spec/test_app/Gemfile', __FILE__)
 if File.exists?(gemfile) && (%w(spec cucumber).include?(ARGV.first.to_s) || ARGV.size == 0)
@@ -25,9 +24,6 @@ task :default => [:spec, :cucumber ]
 
 spec = eval(File.read('spree_sunspot_search.gemspec'))
 
-Rake::GemPackageTask.new(spec) do |p|
-  p.gem_spec = spec
-end
 
 desc "Release to gemcutter"
 task :release => :package do

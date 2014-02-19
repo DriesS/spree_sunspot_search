@@ -1,5 +1,11 @@
 Spree::Product.class_eval do
   searchable do
+
+    autocomplete :product_description, :using => :description
+    autosuggest  :product_description, :using => :description
+    autocomplete :product_name, :using => :name
+    autosuggest  :product_name, :using => :name
+
     boolean :is_active, :using => :is_active?
 
     conf = Spree::Search::SpreeSunspot.configuration
@@ -16,7 +22,7 @@ Spree::Product.class_eval do
           send field[:type], field[:name], field[:opts]
         end
       else
-        text(field)
+        text(field,:more_like_this => true)
       end
     end
 
@@ -53,8 +59,33 @@ Spree::Product.class_eval do
 
   def is_active?
     !deleted_at && available_on &&
-      (available_on <= Time.zone.now) &&
-        (Spree::Config[:allow_backorders] || count_on_hand > 0)
+      (available_on <= Time.zone.now) #&&
+        #(Spree::Config[:allow_backorders] || count_on_hand > 0)
+  end
+
+  def self.search_for(query, num_results = 10)
+    Spree::Product.solr_search do
+      fulltext query
+      paginate :page => 1, :per_page => num_results
+    end
+  end
+
+  def self.autocomplete(phrase, num_results = 10)
+    Spree::Product.solr_search do
+      adjust_solr_params do |params|
+        params[:q] = "product_name_ac:\"#{phrase}\""
+      end
+      paginate :page => 1, :per_page => num_results
+    end
+  end
+
+  def self.autosuggest(phrase, num_results = 10)
+    Spree::Product.solr_search do
+      adjust_solr_params do |params|
+        params[:q] = "product_name_as:\"#{phrase}\""
+      end
+      paginate :page => 1, :per_page => num_results
+    end
   end
 
   private
