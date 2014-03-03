@@ -70,8 +70,9 @@ Spree::Product.class_eval do
     end
   end
 
-  def self.autocomplete(phrase, num_results = 10)
+  def self.autocomplete(phrase, site_id, num_results = 10)
     Spree::Product.solr_search do
+      with :site_id, site_id.to_i
       adjust_solr_params do |params|
         params[:q] = "product_name_ac:\"#{phrase}\""
       end
@@ -79,8 +80,9 @@ Spree::Product.class_eval do
     end
   end
 
-  def self.autosuggest(phrase, num_results = 10)
+  def self.autosuggest(phrase, site_id, num_results = 10)
     Spree::Product.solr_search do
+      with :site_id, site_id.to_i
       adjust_solr_params do |params|
         params[:q] = "product_name_as:\"#{phrase}\""
       end
