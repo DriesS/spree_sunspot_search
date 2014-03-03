@@ -26,6 +26,11 @@ Spree::Product.class_eval do
       end
     end
 
+    integer :site_id, :multiple => true do
+      x = taxons.map {|t| t.taxonomy ? t.taxonomy.site_id : -1}
+      x.flatten.uniq
+    end
+
     # pull the product's taxon, and all its ancestors: this allows us to intersect the display with the current taxon's
     # children and allow the user to intuitively 'dig down' into the product heirarchy
     # root taxon is excluded: doesn't really allow for intuitive navigation
