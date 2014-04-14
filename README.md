@@ -1,5 +1,6 @@
 SpreeSunspotSearch
 ==================
+https://www.codeship.io/projects/139c4bd0-a611-0131-0752-5a152af363c3/status
 
 Adds Solr search to Spree Commerce using [Sunspot](https://github.com/sunspot/sunspot).
 
