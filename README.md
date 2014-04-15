@@ -74,6 +74,14 @@ Facets
 Edit the [initializer](https://github.com/iloveitaly/spree_sunspot_search/blob/master/lib/generators/templates/spree_sunspot_search.rb) created by the installation script.
 The initializer template should provide enough examples to get you started.
 
+
+Tests
+-----
+
+```shell
+ 
+```
+
 TODO
 =====
 

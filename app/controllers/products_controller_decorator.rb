@@ -1,5 +1,5 @@
 Spree::ProductsController.class_eval do
-  before_action :merge_site_id, [:index, :autocomplete, :autosuggest]
+  before_filter :merge_site_id, [:index, :autocomplete, :autosuggest]
 
   def autocomplete
     suggestions = Spree::Product.autocomplete(params[:keywords], params[:site_id])
