@@ -1,15 +1,24 @@
 require 'spree_core'
 require 'sunspot_rails'
+require 'spree_sunspot_search/engine'
 require 'spree/search/spree_sunspot/configuration'
+require 'spree/core/search/base'
 
 module SpreeSunspotSearch
   class Engine < Rails::Engine
+    require 'spree/core'
+    isolate_namespace Spree
     engine_name 'spree_sunspot_search'
 
     config.autoload_paths += %W(#{config.root}/lib)
 
+    # use rspec for tests
+    config.generators do |g|
+      g.test_framework :rspec
+    end
+
     initializer "spree.sunspot_search.preferences", :after => "spree.environment" do |app|
-      Spree::Config.searcher_class = Spree::Search::SpreeSunspot::Search
+      app.config.spree.preferences.searcher_class = Spree::Search::SpreeSunspot::Search
     end
 
     def self.activate
@@ -28,6 +37,7 @@ module SpreeSunspotSearch
     config.to_prepare &method(:activate).to_proc
   end
 end
+
 module Sunspot
   module Type
 
