@@ -1,7 +1,7 @@
 require 'spree_core'
 require 'sunspot_rails'
 require 'spree_sunspot_search/engine'
-require 'spree/search/spree_sunspot/configuration'
+require 'spree/search/spree_sunspot'
 require 'spree/core/search/base'
 
 module SpreeSunspotSearch

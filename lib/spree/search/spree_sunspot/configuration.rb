@@ -27,6 +27,7 @@ module Spree
           # product properties retrieved using the new Spree::Product#property
           self.property_facets = [:brand]
 
+          #TODO: not following this
           self.fields = [
             # boost gives the product title a bit of a priority
             { :type => :text, :name => :name, :opts => { :boost => 2.0 } },
@@ -34,12 +35,15 @@ module Spree
             { :type => :float, :name => :price }
           ]
 
+          #TODO: do we need this?
           # custom facets defined as methods directly on Spree::Product
           self.other_facets = []
 
+          #TODO: not following this, seems confusing
           # facets that have already been created and should be displayed in the suggestions partial
           self.show_facets = []
 
+          #TODO: do we need this?
           self.facet_display_limit = 1
 
           self.sort_fields = {
@@ -56,18 +60,6 @@ module Spree
         end
 
       end
-
-      class << self
-        attr_accessor :configuration
-      end
-
-      def self.configure
-        self.configuration ||= Spree::Search::SpreeSunspot::Configuration.new
-        yield configuration
-      end
     end
   end
 end
-
-# TODO move this to a more appropiate / intention revealing location
-Spree::Search::SpreeSunspot.configure {}
