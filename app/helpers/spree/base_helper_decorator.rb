@@ -9,4 +9,11 @@ Spree::BaseHelper.module_eval do
       link_to(facet_row.value, params.merge("#{facet_name}_facet" => facet_row.value, "page" => nil)) + " (#{facet_row.count})"
     end
   end
+
+  def price_range_to_text(price_range)
+    price_range = price_range.split('-')
+    return "€ #{price_range.first} - € #{price_range.last}"
+
+  end
+
 end
