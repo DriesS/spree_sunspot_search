@@ -3,4 +3,4 @@ Deface::Override.new(:virtual_path => "spree/shared/_taxonomies",
                       :insert_top => "nav#taxonomies",
                       :partial => "spree/products/facets",
                       :disabled => false,
-                      :attributes => {:class => 'search-sidebar'}))
+                      :attributes => {:class => 'search-sidebar'})
