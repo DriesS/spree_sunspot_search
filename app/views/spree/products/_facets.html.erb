@@ -1,5 +1,8 @@
 <%  
 if params[:keywords] 
+    %>
+    <div class='search-sidebar'>
+    <%
     conf = Spree::Search::SpreeSunspot.configuration
     facets_arr = conf.display_facets
     limit = conf.facet_display_limit
@@ -42,4 +45,5 @@ if params[:keywords]
             <% end %>
         </ul>
     <% end %>
+    </div>
 <% end %>
